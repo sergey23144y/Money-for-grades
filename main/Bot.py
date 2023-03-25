@@ -2,6 +2,8 @@ from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.dispatcher import FSMContext
 from aiogram.types import InputFile
+import requests
+
 from ClassUser import User
 
 # Токен подключения
@@ -12,6 +14,8 @@ HELP_COMMADS = """
 /start - начать работу с ботом
 /help - список комманд
 """
+
+url = ['https://admin.sokratapp.ru/api/api-token-auth/',"https://admin.sokratapp.ru/api/user_me"]
 
 # Экземпляр класса Bot
 bot = Bot(TOKEN_AIP)
@@ -33,6 +37,23 @@ score = 0
 
 async def on_start(_):
     print("Все ОК!")
+
+
+async def check_email(email):
+    url = 'https://admin.sokratapp.ru/api/users/check_email/'
+
+    data = {
+        "email": email
+    }
+
+    r = requests.get(url=url, data=data)
+
+    try:
+        r.raise_for_status()
+        return True
+    except:
+        return False
+
 
 async def menu(message: types.Message):
     global email, phon, score
@@ -61,7 +82,7 @@ async def start(message: types.Message):
     nameuser = message.from_user.username
     keyboard = types.InlineKeyboardMarkup()
     keyboard.add(types.InlineKeyboardButton(text="Подключиться к программе", callback_data="acquaintance1"))
-    await bot.send_photo(chat_id=message.chat.id, photo=photo,
+    await bot.send_photo(chat_id=message.chat.id, photo="https://downloader.disk.yandex.ru/preview/0ecb4e3ac44ed45551f4dddeede596a2ac1ff73d8e8dede6cb05d4061cef7519/641b2f71/YLl_0Fu4csCERoyCuarUVt4sDjQKomanFhLx_E_BiQnQzY6pc93X19kYCvGDYVNjsRZMHOc6zYCdIgqliU5JOg%3D%3D?uid=0&filename=Стартовая%20картинка%20после%20запуска.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1855x947",
                          caption="Привет,@" + nameuser + "\nДобро пожаловать в федеральную программу 'Деньги за "
                                                          "оценки' от компании Sokrat!\n\n Для чего нужна эта "
                                                          "программа?\n\n 1️⃣  Мы хотим поддержать тебя и позволить в "
@@ -81,45 +102,74 @@ async def id_meneger(message: types.Message):
 @dp.callback_query_handler(text="acquaintance1")
 async def acquaintance1(call: types.CallbackQuery):
     keyboard = types.InlineKeyboardMarkup()
-    keyboard.add(types.InlineKeyboardButton(text="Далее 1 из 3", callback_data="acquaintance2"))
+    keyboard.add(types.InlineKeyboardButton(text="Далее 1 из 4", callback_data="acquaintance2"))
     await bot.send_photo(chat_id=call.message.chat.id,
-                         photo="https://sun9-24.userapi.com/impg/rEiKXCb_ljrz2NJNfJHfKRz2qUupWY2haXMXlQ/Otcy6P8lwL0"
-                               ".jpg?size=604x368&quality=95&sign=d1b20754a39db81cbbd41b0e9490b164&type=album",
+                         photo="https://downloader.disk.yandex.ru/preview/708da2a1ba2954484472febd4d67d676fff3265c67cc33b7763359a40c54d7b7/641b2f71/aav889LViY80SFUJZROaEjgDvA_RgSmArNa4MWmSMaCDjBzheks2RgabpYMt1IWnDWFHGuiykGvN0iSzLZcCaQ%3D%3D?uid=0&filename=Картинка%201.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1855x947",
                          reply_markup=keyboard)
 
 
 @dp.callback_query_handler(text="acquaintance2")
 async def acquaintance2(call: types.CallbackQuery):
     keyboard = types.InlineKeyboardMarkup()
-    keyboard.add(types.InlineKeyboardButton(text="Далее 2 из 3", callback_data="acquaintance3"))
+    keyboard.add(types.InlineKeyboardButton(text="Далее 2 из 4", callback_data="acquaintance3"))
     await bot.send_photo(chat_id=call.message.chat.id,
-                         photo="https://avatars.dzeninfra.ru/get-zen_doc/44972"
-                               "/pub_5bd1a09e064ed400ad695787_5bd1a1a5a6560100aaad1c9d/scale_1200",
+                         photo="https://downloader.disk.yandex.ru/preview/675beca8b0c73621c8bb93ad309a2bc392fce936bf2269202c0cbaa638992921/641b2f71/bnKFXL36r_9d3cmMsF811DgDvA_RgSmArNa4MWmSMaBqXNsSKkLemGiXltOTt2XxrP3QnBfkefLtrVZrGDsYSA%3D%3D?uid=0&filename=Картинка%202.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1855x947",
                          reply_markup=keyboard)
 
 
 @dp.callback_query_handler(text="acquaintance3")
 async def acquaintance3(call: types.CallbackQuery):
     keyboard = types.InlineKeyboardMarkup()
+    keyboard.add(types.InlineKeyboardButton(text="Далее 3 из 4", callback_data="acquaintance4"))
+    await bot.send_photo(chat_id=call.message.chat.id,
+                         photo="https://downloader.disk.yandex.ru/preview/e0ccd104f293af9bb09f7244077d63dcca5d13b16bc6423c57b340b2569a0873/641b2f71/Gvr4pk1H6sUpkuCxyJBbSxQTsnBTv7czpn4fvlwOl86aUylQQgWBrMFcFBnGDFBOl68-D4SgN0TZqx5DlAWBTQ%3D%3D?uid=0&filename=Картинка%203.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1855x947",
+                         reply_markup=keyboard)
+
+
+@dp.callback_query_handler(text="acquaintance4")
+async def acquaintance3(call: types.CallbackQuery):
+    keyboard = types.InlineKeyboardMarkup()
     keyboard.add(types.InlineKeyboardButton(text="Участвовать в программе", callback_data="connect_program"))
     await bot.send_photo(chat_id=call.message.chat.id,
-                         photo="https://t4.ftcdn.net/jpg/00/31/47/61/360_F_31476143_UMcu2UTun6OODmFi5PnSGPSLtIHWdiJy"
-                               ".jpg",
+                         photo="https://downloader.disk.yandex.ru/preview/e9599f3bb92d46099f03878960e455d8f839b24b3201b7e08faaa04aab2247e0/641b2f71/UHyX3SC38i03tcHZeugg2zgDvA_RgSmArNa4MWmSMaAju5NW2rzj6hCzx5XNaPzYjzPrupLrYk3rMo_85KYgkQ%3D%3D?uid=0&filename=Картинка%204.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=1855x947",
                          reply_markup=keyboard)
 
 
 @dp.callback_query_handler(text="connect_program")
 async def connect(call: types.CallbackQuery):
-    await call.message.answer("Введите вашу почту ")
+    await call.message.answer("Введите вашу почту, для начала регестрации/авторизации.")
     await User.user_email.set()
-
 
 @dp.message_handler(state=User.user_email)
 async def registr_1(message: types.Message, state: FSMContext):
     mail = message.text
     await state.update_data(user_email=mail)
-    await message.answer("Введите телефон")
-    await User.user_phon.set()
+
+    if await check_email(mail):
+        await message.answer("Ваш профиль найден!Введите ваш пароль")
+        await User.user_password.set()
+    else:
+        await message.answer("Ваш профиль не найден.\nПройдите регестрацию пожалуйста")
+
+@dp.message_handler(state=User.user_password)
+async def password(message: types.Message, state: FSMContext):
+    global url
+    password = message.text
+    await state.update_data(user_password=password)
+    data = await state.get_data()
+    email = data.get('user_email')
+
+    data_auto= {
+        "username": f"{email}",
+        "password": f"{password}"
+    }
+    print(data_auto)
+    r_admin = requests.post(url[0],data=data)
+    r_admin_json = r_admin.json()
+
+    await message.answer(r_admin_json['token'])
+    await menu(message=message)
+
 
 
 @dp.message_handler(state=User.user_phon)
@@ -130,20 +180,7 @@ async def registr_2(message: types.Message, state: FSMContext):
     await User.user_password.set()
 
 
-@dp.message_handler(state=User.user_password)
-async def password(message: types.Message, state: FSMContext):
-    password = message.text
-    await state.update_data(user_password=password)
-    global email, phon, score,id_me
-    data = await state.get_data()
-    email = data.get('user_email')
-    phon = data.get('user_phon')
-    score = data.get('user_score')
 
-    await menu(message=message)
-    await state.finish()
-
-    await bot.send_message(id_me,f'Пользователь {message.from_user.username}, зарегестрировался')
 
 @dp.callback_query_handler(text="menu")
 async def menu_button(call: types.CallbackQuery):
