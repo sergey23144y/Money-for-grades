@@ -1,0 +1,22 @@
+{
+  "users_number": 50,
+  "vac_par_number": 20,
+  "study_par_number": 20,
+  "promo_number": 20,
+  "hard_skills_number": 20,
+  "soft_skills_number": 20,
+  "specialties_number": 20,
+  "teachers_number": 20,
+  "ads_number": 20,
+  "books_number": 50,
+  "course_categories_number": 10,
+  "courses_number": 50,
+  "vacancy_categories_number": 10,
+  "vacancy_number": 30,
+  "image_number": 20,
+  "study_program_number": 20,
+  "personality_type_number": 15,
+  "software_number": 20,
+  "skill_number": 20,
+  "vacancyrequirement_number": 40
+}

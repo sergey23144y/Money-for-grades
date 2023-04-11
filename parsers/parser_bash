@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source /var/www/django/env/bin/activate
+python3.6 /var/www/django/backend_python/parsers/yandex_practicum_request.py
+python3.6 /var/www/django/backend_python/parsers/scrapy_parsers/scrapy_parsers/runner.py
+python3.6 /var/www/django/backend_python/parsers/check_fresh_data.py
+deactivate
+
